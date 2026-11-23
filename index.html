@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SpendWise helps you plan a budget and keep track of your spending.">
+  <title>SpendWise | Personal Budget Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="SpendWise home">
+        <span class="brand-mark">S</span><span>Spend<span class="brand-light">Wise</span></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav-link active" href="#dashboard"><span class="nav-icon">▦</span> Overview</a>
+      <a class="nav-link" href="#transactions"><span class="nav-icon">↕</span> Transactions</a>
+      <div class="sidebar-note">
+        <span class="note-icon">✦</span>
+        <h3>Small steps add up.</h3>
+        <p>Keep an eye on your spending and make every shilling count.</p>
+      </div>
+      <div class="sidebar-footer"><span class="status-dot"></span> Your money, in focus</div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PERSONAL FINANCE</p>
+          <h1>Good day<span class="heading-period">.</span></h1>
+          <p class="muted">Here’s your spending overview.</p>
+        </div>
+        <div class="today-chip"><span>◷</span><span id="todayDate">Your dashboard</span></div>
+      </header>
+
+      <section class="budget-panel" aria-labelledby="budgetTitle">
+        <div class="budget-copy">
+          <p class="eyebrow light-eyebrow">YOUR MONTHLY PLAN</p>
+          <h2 id="budgetTitle">Make your money<br>work smarter.</h2>
+          <p>Set a budget, record expenses, and see where you stand.</p>
+        </div>
+        <form id="budgetForm" class="budget-form">
+          <label for="budgetInput">Monthly budget <span>(KES)</span></label>
+          <div class="budget-input-row">
+            <span class="currency-prefix">KES</span>
+            <input id="budgetInput" type="number" min="0" step="1" placeholder="e.g. 30000" inputmode="decimal" required>
+            <button type="submit" class="button button-light">Update</button>
+          </div>
+          <small>Your budget can be changed at any time.</small>
+        </form>
+        <div class="budget-decoration" aria-hidden="true">↗</div>
+      </section>
+
+      <section class="stats-grid" aria-label="Budget summary">
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Monthly budget</span><span class="stat-icon purple">◎</span></div>
+          <p class="stat-value" id="totalBudget">KES 0</p>
+          <p class="stat-foot">Your spending limit</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Total spent</span><span class="stat-icon orange">↗</span></div>
+          <p class="stat-value" id="totalSpent">KES 0</p>
+          <p class="stat-foot" id="expenseCount">0 recorded expenses</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Balance left</span><span class="stat-icon green">◈</span></div>
+          <p class="stat-value" id="balanceLeft">KES 0</p>
+          <p class="stat-foot" id="balanceMessage">Set a budget to get started</p>
+        </article>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-heading">
+          <div><p class="section-kicker">BUDGET HEALTH</p><h2>Spending progress</h2></div>
+          <strong id="spendingPercent">0%</strong>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-caption" id="budgetFeedback" aria-live="polite">Add a budget and your expenses to see your progress.</p>
+      </section>
+
+      <section class="transactions-section" id="transactions">
+        <div class="section-heading">
+          <div><p class="section-kicker">YOUR ACTIVITY</p><h2>Recent expenses</h2></div>
+          <span class="record-count" id="recordCount">0 records</span>
+        </div>
+
+        <div class="content-grid">
+          <form id="expenseForm" class="expense-form card-surface">
+            <div class="form-title"><span class="form-title-icon">＋</span><div><h3>Add an expense</h3><p>Record where your money goes.</p></div></div>
+            <label for="expenseName">Expense name</label>
+            <input id="expenseName" type="text" maxlength="60" placeholder="e.g. Groceries" required>
+            <div class="form-row">
+              <div><label for="expenseAmount">Amount (KES)</label><input id="expenseAmount" type="number" min="0.01" step="0.01" placeholder="0.00" inputmode="decimal" required></div>
+              <div><label for="expenseCategory">Category</label>
+                <select id="expenseCategory" required>
+                  <option value="Food">Food</option><option value="Transport">Transport</option><option value="Bills">Bills</option><option value="Shopping">Shopping</option><option value="Education">Education</option><option value="Health">Health</option><option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <label for="expenseDate">Date</label>
+            <input id="expenseDate" type="date" required>
+            <button class="button button-primary submit-button" type="submit">Add expense <span>＋</span></button>
+            <p class="form-message" id="formMessage" role="status"></p>
+          </form>
+
+          <div class="expense-list-card card-surface">
+            <div class="list-toolbar">
+              <div><h3>All expenses</h3><p>Every entry in one place.</p></div>
+              <label class="search-box" for="expenseSearch"><span>⌕</span><input id="expenseSearch" type="search" placeholder="Search expenses" aria-label="Search expenses"></label>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Expense</th><th>Date</th><th>Amount</th><th><span class="sr-only">Action</span></th></tr></thead>
+                <tbody id="expenseList"><tr class="empty-row"><td colspan="4"><span class="empty-icon">⌁</span><strong>No expenses yet</strong><span>Add your first expense to see it here.</span></td></tr></tbody>
+              </table>
+            </div>
+            <p class="list-foot" id="listFoot">Your expense records will appear here.</p>
+          </div>
+        </div>
+      </section>
+      <footer class="page-footer">SpendWise <span>•</span> Make thoughtful money moves.</footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
